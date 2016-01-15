@@ -1,0 +1,63 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+
+<dom-module id="wiki-element" attributes="title user time">
+  <style>
+    /* CSS rules for your element */
+    .info {
+      font-style: italic;
+      font-size: 14px;
+      color: #696969;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    paper-material {
+      background-color: #fff;
+      max-width: 640px;
+      width: 90%;
+      margin: 25px auto;
+      position: relative;
+    }
+
+    .info span {
+      margin-left: 5px;
+    }
+
+  </style>
+  <template>
+    <!-- local DOM for your element -->
+
+    <paper-material class="todo" elevation="1">
+      <paper-item id="title">{{title}}</paper-item>
+      <paper-item class="info">Created by: <span>{{ user }}</span></paper-item>
+      <paper-item class="info">{{ time }}</paper-item>
+    </paper-material> <!-- data bindings in local DOM -->
+
+  </template>
+</dom-module>
+
+<script>
+  // element registration
+  Polymer({
+    is: 'wiki-element',
+
+    // add properties and methods on the element's prototype
+
+    properties: {
+      user: {
+        type: String,
+        value: ''
+      },
+      title: {
+        type: String,
+        value: 'Hello!'
+      },
+      time: {
+        type: String,
+        value: new Date().toLocaleString()
+      }
+    }
+  });
+</script>

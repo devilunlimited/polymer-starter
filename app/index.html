@@ -1,0 +1,108 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="generator" content="Deep Dive Polymer">
+  <title>Deep Dive Polymer</title>
+
+
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild-->
+
+  <!-- build:js bower_components/webcomponentsjs/webcomponents-lite.min.js -->
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <!-- endbuild -->
+
+  <!-- Because this project uses vulcanize this should be your only html import
+       in this file. All other imports should go in elements.html -->
+  <link rel="import" href="elements/elements.html">
+
+  <!-- For shared styles, shared-styles.html import in elements.html -->
+  <style is="custom-style" include="shared-styles"></style>
+</head>
+
+<body fullbleed unresolved>
+  <template is="dom-bind" id="app">
+    <paper-drawer-panel>
+      <paper-header-panel class="side-panel" drawer>
+        <paper-toolbar>
+          <paper-item>Menu</paper-item>
+        </paper-toolbar>
+        <dev>
+          <paper-menu class="list" attr-for-selected="data-route" selected="[[route]]">
+            <paper-submenu>
+              <paper-item class="menu-trigger">Wiki</paper-item>
+              <paper-menu class="menu-content list">
+                <a data-route="wiki-by-title" href="{{baseUrl}}wiki-by-title">
+                  <paper-item>Find in title</paper-item></a>
+                <a data-route="wiki-by-content" href="{{baseUrl}}wiki-by-content">
+                  <paper-item>Find in content</paper-item></a>
+              </paper-menu>
+            </paper-submenu>
+            <paper-submenu>
+              <paper-item class="menu-trigger">Contact</paper-item>
+              <paper-menu class="menu-content list">
+                <paper-item>Find by title</paper-item>
+                <paper-item>Find by salutation</paper-item>
+                <paper-item>Find by last name</paper-item>
+                <paper-item>Find by address</paper-item>
+              </paper-menu>
+            </paper-submenu>
+          </paper-menu>
+        </dev>
+      </paper-header-panel>
+
+      <paper-scroll-header-panel main class="main-panel">
+        <paper-toolbar>
+          <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
+          <paper-item>Search</paper-item>
+        </paper-toolbar>
+        <div>
+          <iron-pages attr-for-selected="data-route" selected="{{route}}">
+            <section data-route="wiki-by-title">
+              <wiki-search search-method="Search By Title"></wiki-search>
+            </section>
+            <section data-route="wiki-by-content">
+              <wiki-search search-method="Search By Content"></wiki-search>
+            </section>
+
+            <section data-route="user-info">
+              <paper-material elevation="1">
+                <h2 class="page-title">User: {{params.name}}</h2>
+                <div>This is {{params.name}}'s section</div>
+              </paper-material>
+            </section>
+
+            <section data-route="contact">
+              <paper-material elevation="1">
+                <h2 class="page-title">Contact</h2>
+                <p>This is the contact section</p>
+              </paper-material>
+            </section>
+          </iron-pages>
+        </div>
+      </paper-header-panel>
+    </paper-drawer-panel>
+
+
+  </template>
+
+  <!-- build:js scripts/app.js -->
+  <script src="scripts/app.js"></script>
+  <!-- endbuild-->
+</body>
+
+</html>

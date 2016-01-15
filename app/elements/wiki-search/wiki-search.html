@@ -1,0 +1,45 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../wiki-element/wiki-element.html">
+
+<dom-module id="wiki-search">
+  <template>
+    <iron-ajax id="wikiSearch"
+      auto
+      url="{{apiUrl(searchMethod, inputTitle)}}"
+      handle-as="json"
+      last-response='{{result}}'>
+    </iron-ajax>
+    <paper-material  id="searchEntry" elevation="2">
+      <paper-input label="{{searchMethod}}" value="{{inputTitle}}"></paper-input>
+    </paper-material>
+
+    <template is="dom-repeat" items="[[result._embedded.wikiArticle]]">
+      <wiki-element user="{{item.user}}" title="{{item.title}}" time="{{item.time}}"></wiki-element>
+    </template>
+  </template>
+  <script>
+    Polymer({
+      is: 'wiki-search',
+      properties: {
+        searchMethod: {
+          type: String
+        }
+      },
+      apiUrl: function(method, input) {
+        if (!method) {return;}
+        if (!input) {return;}
+        var url = null;
+        if (method.indexOf("Title") > -1) {
+          url = 'http://pc5414:8080/wikiArticle/search/findByTitleStartsWith?title=' + input;
+        }
+        if (method.indexOf("Content") > -1) {
+          url = 'http://pc5414:8080/wikiArticle/search/findByTextContaining?text=' + input;
+        }
+        return url;
+      },
+    });
+  </script>
+</dom-module>
